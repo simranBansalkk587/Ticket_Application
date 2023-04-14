@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace Ticket_booking_API.Models
 {
-    public class Roles
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-
-    }
+  public class UserVM
+  {
+    public string Email { get; set; }
+    public string PassWord { get; set; }
+  }
 }

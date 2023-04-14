@@ -11,8 +11,13 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
+
 using System.Threading.Tasks;
 using Ticket_booking_API.Data;
+using Ticket_booking_API.DTOMapping;
+using Ticket_booking_API.Repository;
+using Ticket_booking_API.Repository.IRepository;
 
 namespace Ticket_booking_API
 {
@@ -31,8 +36,18 @@ namespace Ticket_booking_API
 
             string cs = Configuration.GetConnectionString("constr");
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(cs));
+      services.AddScoped<IUserRepositroy, UserRepository>();
+      // services.AddAutoMapper(typeof(MappingProfile));
+    //    services.AddScoped<IMapper,MappingProfile>());
+     services.AddAutoMapper(typeof(MappingProfile));
+    
 
-            services.AddControllers();
+
+      services.Configure<EmailSetting>(Configuration.GetSection("EmailSetting"));
+      services.AddScoped<IEmailSender, EmailSender>();
+     //services.AddAutoMapper(typeof(MappingProfile));
+
+      services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ticket_booking_API", Version = "v1" });

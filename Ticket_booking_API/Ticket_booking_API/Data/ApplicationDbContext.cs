@@ -1,4 +1,4 @@
-﻿
+
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -31,4 +31,5 @@ namespace Ticket_booking_API.Data
         }
 
     }
+
 }
