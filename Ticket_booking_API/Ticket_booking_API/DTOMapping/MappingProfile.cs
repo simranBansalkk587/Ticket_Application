@@ -13,6 +13,7 @@ namespace Ticket_booking_API.DTOMapping
     public MappingProfile()
     {
       CreateMap<UserDTO, User>().ReverseMap();
+      CreateMap<TicketDTO, Ticket>().ReverseMap();
     }
 
   }

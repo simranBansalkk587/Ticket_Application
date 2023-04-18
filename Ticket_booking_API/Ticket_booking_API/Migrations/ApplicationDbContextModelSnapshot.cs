@@ -111,15 +111,10 @@ namespace Ticket_booking_API.Migrations
                     b.Property<DateTime>("RegreshDates")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RolesId")
-                        .HasColumnType("int");
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RolesId");
 
                     b.ToTable("Users");
                 });
@@ -141,15 +136,6 @@ namespace Ticket_booking_API.Migrations
                     b.Navigation("Ticket");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Ticket_booking_API.Models.User", b =>
-                {
-                    b.HasOne("Ticket_booking_API.Models.Roles", "Roles")
-                        .WithMany()
-                        .HasForeignKey("RolesId");
-
-                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }

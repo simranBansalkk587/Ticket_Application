@@ -50,24 +50,24 @@ namespace Ticket_booking_API.Controllers
       }
       return Ok();
     }
-    public static string HashPassword(string password)
-    {
-      using (var sha256 = SHA256.Create())
-      {
-        var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-        var hash = BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
-        return hash;
-      }
+    ////public static string HashPassword(string password)
+    ////{
+    ////  using (var sha256 = SHA256.Create())
+    ////  {
+    ////    var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+    ////    var hash = BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+    ////    return hash;
+    ////  }
 
     }
-    [HttpPost("authenticate")]
+  //  [HttpPost("authenticate")]
 
-    public IActionResult Authenticate([FromBody] UserVM userVM)
-    {
-      var user = _userRepository.Authenticate(userVM.Email, HashPassword(userVM.PassWord));
-      if (user == null) return BadRequest("Wrong User/Password");
-      return Ok(user);
-    }
+  //  public IActionResult Authenticate([FromBody] UserVM userVM)
+  //  {
+  //    var user = _userRepository.Authenticate(userVM.Email, HashPassword(userVM.PassWord));
+  //    if (user == null) return BadRequest("Wrong User/Password");
+  //    return Ok(user);
+  //  }
 
-  }
+  //}
 }

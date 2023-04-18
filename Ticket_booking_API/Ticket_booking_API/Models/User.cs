@@ -16,9 +16,9 @@ namespace Ticket_booking_API.Models
 
         public DateTime ExprieDate { get; set; }
         public DateTime RegreshDates { get; set; }
-        public int RoleId { get; set; }
+       // public int RoleId { get; set; }
 
-        public Roles Roles { get; set; }
+        public String Role { get; set; }
 
     }
 }

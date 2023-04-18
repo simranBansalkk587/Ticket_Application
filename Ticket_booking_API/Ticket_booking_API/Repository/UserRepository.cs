@@ -53,26 +53,26 @@ namespace Ticket_booking_API.Repository
         Name = userDTO.Name,
         Address = userDTO.Address,
         Email = userDTO.Email,
-          Password =HashPassword (userDTO.Password),
+        //  Password =userDTO.Password,
         RegistrationDate = userDTO.RegistrationDate,
         ExprieDate = userDTO.ExprieDate,
-      //  Roles=userDTO.Role("Admin")
+        Role="Admin"
       };
       _context.Users.Add(user);
       _context.SaveChanges();
       return user;
     }
-    public static string HashPassword(string password)
-    {
-      using (var sha256 = SHA256.Create())
-      {
-        var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-        var hash = BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
-        return hash;
-      }
+    //public static string HashPassword(string password)
+    //{
+    //  using (var sha256 = SHA256.Create())
+    //  {
+    //    var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+    //    var hash = BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+    //    return hash;
+    //  }
 
     }
   }
-}
+
  
 

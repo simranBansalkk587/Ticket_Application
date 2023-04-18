@@ -37,22 +37,37 @@ namespace Ticket_booking_API
             string cs = Configuration.GetConnectionString("constr");
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(cs));
       services.AddScoped<IUserRepositroy, UserRepository>();
+      //services.AddScoped<ITicketRepository,TicketRepository>();
       // services.AddAutoMapper(typeof(MappingProfile));
-    //    services.AddScoped<IMapper,MappingProfile>());
-     services.AddAutoMapper(typeof(MappingProfile));
+      //    services.AddScoped<IMapper,MappingProfile>());
+      services.AddScoped<ITicketRepository, TicketRepository>();
+
+      services.AddAutoMapper(typeof(MappingProfile));
     
 
 
       services.Configure<EmailSetting>(Configuration.GetSection("EmailSetting"));
       services.AddScoped<IEmailSender, EmailSender>();
-     //services.AddAutoMapper(typeof(MappingProfile));
+    // services.AddAutoMapper(typeof(MappingProfile));
 
       services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ticket_booking_API", Version = "v1" });
             });
-        }
+
+      services.AddCors(options =>
+      {
+        options.AddPolicy(name: "My Police",
+            builder =>
+            {
+              builder.WithOrigins("http://localhost:4200")
+                      .AllowAnyOrigin()
+                      .AllowAnyHeader()
+                      .AllowAnyMethod();
+            });
+      });
+    }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -63,8 +78,8 @@ namespace Ticket_booking_API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ticket_booking_API v1"));
             }
-
-            app.UseHttpsRedirection();
+      app.UseCors("My Police");
+      app.UseHttpsRedirection();
 
             app.UseRouting();
 

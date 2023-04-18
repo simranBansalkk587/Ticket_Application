@@ -1,0 +1,50 @@
+    <!-- <div class="row-12">
+            <tr *ngFor='let ticket of TicketList'>
+                <td>{{ticket.name}}</td>
+            <td>{{ticket.count}}</td>
+                <td>
+                    
+                    <img src={{ticket.image}} width="100" height="100" />
+
+                </td>
+                <div class="row-col-sm-2">
+                    <td>
+                        <button class="btn btn-info">Details</button>
+                    </td>
+
+                </div>
+
+            </tr>
+    </div>
+
+ -->
+
+
+
+        <div class="row">
+            <tr *ngFor='let ticket of TicketList'>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="row p-2">
+                        <div class="col-12  p-1" style="border:1px solid 008cba; border-radius: 5px;">
+                            <div class="card" style="border:0px;">
+                                <img src={{ticket.image}} class="card-img-top rounded" />
+                                
+                                <div style="padding-left:5px;">
+                                    <p>Name <b class=""><td>{{ticket.name}}</td>></b></p>
+                                </div>
+                                <div style="padding-left:5px;">
+                                    <p style="color:maroon"> <b class=""><td>{{ticket.count}}</td>></b></p>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary form-control" >Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+            
+            </tr>
+        </div>    
+    </div>

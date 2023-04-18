@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Ticket_booking_API.Data;
+using Ticket_booking_API.DTO;
 using Ticket_booking_API.Models;
+using Ticket_booking_API.Repository.IRepository;
 
 namespace Ticket_booking_API.Controllers
 {
@@ -14,54 +17,48 @@ namespace Ticket_booking_API.Controllers
     public class TicketController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        public TicketController(ApplicationDbContext context)
+    private readonly IMapper _mapper;
+    private ITicketRepository _ticketRepository;
+    public TicketController(ApplicationDbContext context, IMapper mapper, ITicketRepository ticketRepository)
         {
             _context = context;
-        }
-        [HttpGet]
-        public IActionResult GetTicket()
-        {
-            var ticketIndb = _context.Tickets.Where(n => !n.IsDeleted);
-            return Ok(ticketIndb);
-        }
-        [HttpGet("{id}")]
-        public IActionResult GetTicket(int id)
-        {
-            var ticketIndb = _context.Tickets.Find(id);
-            if (ticketIndb == null) return NotFound();
-            return Ok(ticketIndb);
-        }
-        [HttpPost]
-        public IActionResult SaveTicket([FromBody] Ticket ticket)
-        {
-            if (ticket != null && ModelState.IsValid)
-            {
-                _context.Tickets.Add(ticket);
-                _context.SaveChanges();
-                return Ok();
-            }
-            return BadRequest();
-        }
-        [HttpPut]
-        public IActionResult UpdateTicket([FromBody] Ticket ticket)
-        {
-            if (ticket != null && ModelState.IsValid)
-            {
-                _context.Tickets.Update(ticket);
-                _context.SaveChanges();
-                return Ok();
-            }
-            return BadRequest();
-        }
-        [HttpDelete]
-        public void Delete(int id)
-        {
-            var ticketInDb = _context.Tickets.FirstOrDefault(s => s.Id == id && !s.IsDeleted);
-            if (ticketInDb != null)
-                _context.Remove(ticketInDb);
-            _context.SaveChanges();
+            _mapper = mapper;
+            _ticketRepository = ticketRepository;
 
-        }
+    }
+    [HttpGet]
+    public IEnumerable<Ticket> GetTickets()
+    {
+      return _ticketRepository.GetAllTickets();
+    }
+    [HttpPost]
+    public IActionResult SaveTicket([FromBody] TicketDTO ticketDTO)
+    {
+      if (ticketDTO == null)
+        return BadRequest(ModelState);
+      var Ticket = _mapper.Map<TicketDTO, Ticket>(ticketDTO);
+      Ticket.Count += 1;
+      _ticketRepository.AddTicket(Ticket);
 
-    } 
+      return Ok(Ticket);
+    }
+  
+    [HttpPut]
+    public IActionResult UpdateTicket([FromBody] TicketDTO ticketDTO)
+    {
+      if (ticketDTO == null) return BadRequest(ModelState);
+      var Ticket = _mapper.Map<TicketDTO, Ticket>(ticketDTO);
+
+      _ticketRepository.UpdateTicket(Ticket);
+
+      return Ok(Ticket);
+    }
+    [HttpDelete]
+    public void DeleteTicket(int id)
+    {
+      _ticketRepository.DeleteTicket(id);
+    }
+    
+
+ } 
 }
