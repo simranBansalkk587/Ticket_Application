@@ -16,13 +16,48 @@ namespace Ticket_booking_API.Repository
     {
       _emailSetting = emailsetting.Value;
     }
-    public Task SendEmailAsync(string email, string subject, string htmlMessage)
+    //public Task SendEmailAsync(string email, string subject, string htmlMessage,int id )
+    //{
+    //  Execute(email, subject, htmlMessage, id).Wait();
+    //  return Task.FromResult(0);
+    //}
+    
+
+    
+    //public async Task Execute(string email, string Subject, string message,int id)
+    //{
+    //  string setpassword = $"http://localhost:4200/password/id={id}";
+    //  try
+    //  {
+    //    //  string ToEmail = string.IsNullOrEmpty(email) ? _emailSetting.ToEmail : email;
+    //    string ToEmail = email;
+    //    MailMessage Mail = new MailMessage()
+    //    {
+    //      From = new MailAddress(_emailSetting.UsernameEmail, "Movie Ticket")
+    //    };
+    //    Mail.To.Add(ToEmail);
+    //    Mail.CC.Add(_emailSetting.CcEmail);
+    //    Mail.Subject = "Ticket Booking" + Subject;
+    //    Mail.Body = $" Click this link to set your Password:{setpassword}";
+    //    Mail.IsBodyHtml = true;
+
+    //    Mail.Priority = MailPriority.High;
+    //    using (SmtpClient smtp = new SmtpClient(_emailSetting.PrimaryDomain, _emailSetting.PrimaryPort))
+    //    {
+    //      smtp.Credentials = new NetworkCredential(_emailSetting.UsernameEmail, _emailSetting.UsernamePassword);
+    //      smtp.EnableSsl = true;
+    //      await smtp.SendMailAsync(Mail);
+    //    }
+    //  }
+    //  catch (Exception ex)
+    //  {
+    //    string str = ex.Message;
+    //  }
+    //}
+
+    public  async  Task Execute(string email, string Subject, string message,int id)
     {
-      Execute(email, subject, htmlMessage).Wait();
-      return Task.FromResult(0);
-    }
-    public async Task Execute(string email, string Subject, string message)
-    {
+      string setpassword = $"http://localhost:4200/password/id={id}";
       try
       {
         //  string ToEmail = string.IsNullOrEmpty(email) ? _emailSetting.ToEmail : email;
@@ -34,8 +69,9 @@ namespace Ticket_booking_API.Repository
         Mail.To.Add(ToEmail);
         Mail.CC.Add(_emailSetting.CcEmail);
         Mail.Subject = "Ticket Booking" + Subject;
-        Mail.Body = message;
+        Mail.Body = $" Click this link to set your Password:{setpassword}";
         Mail.IsBodyHtml = true;
+
         Mail.Priority = MailPriority.High;
         using (SmtpClient smtp = new SmtpClient(_emailSetting.PrimaryDomain, _emailSetting.PrimaryPort))
         {
@@ -49,6 +85,18 @@ namespace Ticket_booking_API.Repository
         string str = ex.Message;
       }
     }
-  }
 
+    public Task SendEmailAsync(string email, string subject, string htmlMessage, int id)
+    {
+      Execute(email, subject, htmlMessage, id).Wait();
+      return Task.FromResult(0);
+    }
+  }
 }
+
+
+  
+
+
+
+

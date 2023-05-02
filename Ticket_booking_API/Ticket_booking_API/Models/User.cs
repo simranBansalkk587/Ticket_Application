@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,7 +19,12 @@ namespace Ticket_booking_API.Models
         public DateTime RegreshDates { get; set; }
        // public int RoleId { get; set; }
 
-        public String Role { get; set; }
 
-    }
+        public String Role { get; set; }
+    [NotMapped]
+    public string Token { get; set; }
+   //public bool EmailConfrimed { get; set; }
+   // [NotMapped]
+   // public string EmailConfirmedToken { get; set; }
+  }
 }

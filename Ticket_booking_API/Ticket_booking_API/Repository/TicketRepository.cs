@@ -39,6 +39,11 @@ namespace Ticket_booking_API.Repository
       return _context.Tickets.FirstOrDefault(e => e.Id == id);
     }
 
+    public int GetTicketCount()
+    {
+      return _context.Tickets.Count();
+    }
+
     public void UpdateTicket(Ticket ticket)
     {
       var updateticket = _context.Tickets.FirstOrDefault(e => e.Id == ticket.Id);

@@ -18,6 +18,11 @@ using Ticket_booking_API.Data;
 using Ticket_booking_API.DTOMapping;
 using Ticket_booking_API.Repository;
 using Ticket_booking_API.Repository.IRepository;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Ticket_booking_API
 {
@@ -41,6 +46,9 @@ namespace Ticket_booking_API
       // services.AddAutoMapper(typeof(MappingProfile));
       //    services.AddScoped<IMapper,MappingProfile>());
       services.AddScoped<ITicketRepository, TicketRepository>();
+      services.AddScoped<IBookingRepository, BookingRepository>();
+      services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+
 
       services.AddAutoMapper(typeof(MappingProfile));
     
@@ -48,7 +56,31 @@ namespace Ticket_booking_API
 
       services.Configure<EmailSetting>(Configuration.GetSection("EmailSetting"));
       services.AddScoped<IEmailSender, EmailSender>();
-    // services.AddAutoMapper(typeof(MappingProfile));
+      // services.AddAutoMapper(typeof(MappingProfile));
+      //JWT
+      var appsettingSection = Configuration.GetSection("AppSettings");
+      services.Configure<AppSettings>(appsettingSection);
+      var appsetting = appsettingSection.Get<AppSettings>();
+      var key = Encoding.ASCII.GetBytes(appsetting.Secret);
+      services.AddAuthentication(u =>
+      {
+        u.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        u.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+      }).AddJwtBearer(u =>
+      {
+        u.RequireHttpsMetadata = false;
+        u.SaveToken = true;
+        u.TokenValidationParameters = new TokenValidationParameters()
+        {
+          ValidateIssuerSigningKey = true,
+          IssuerSigningKey = new SymmetricSecurityKey(key),
+          ValidateIssuer = false,
+          ValidateAudience = false
+
+        };
+
+      });
 
       services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -82,8 +114,9 @@ namespace Ticket_booking_API
       app.UseHttpsRedirection();
 
             app.UseRouting();
+      app.UseAuthentication();
 
-            app.UseAuthorization();
+      app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

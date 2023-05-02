@@ -13,5 +13,7 @@ namespace Ticket_booking_API.Repository.IRepository
     void AddTicket(Ticket ticket);
     void UpdateTicket(Ticket ticket);
     void DeleteTicket(int id);
+    // Task<Ticket> GetTicketById(int id);
+    int GetTicketCount();
   }
 }

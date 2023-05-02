@@ -1,0 +1,176 @@
+
+        <div class="backgroundWhiteBorder">
+            <div class="container">
+                <div class="card">
+                    <div class="card-header bg-dark text-light ml-0 row container">
+                        <div class="col-6">
+                            <i class="fa fa-shopping-cart"></i> &nbsp;
+                            Shopping Cart
+                        </div>
+                        <div class="col-6 text-right">
+                            <a  routerLink="/home" class="btn btn-outline-info btn-sm">Continue Shopping</a>
+
+                        </div>
+                    </div>
+                    <div class="card-body" *ngFor="let emp of ticket">
+                        <div class="row">
+                            <div class="col-lg-1">
+                                <img [src]="emp.image" class="rounded"width="100%"/>
+                            </div>
+                            <div class="col-lg-4">
+                                <h5 class="text-info"> <td>{{emp.name}}</td></h5>
+                            </div>
+                            <div class="col">
+                                <label for="count"class="col-sm-4">Count</label>
+                                <div class="col-sm-8">
+                                    <input id="count"type="number"[(ngModel)]="booking.count" name="name" placeholder="Enter Count" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-2 col-sm-4 col-lg-2 text-right">
+                                <a asp-action="Delete"  class="btn btn-outline-danger"(click)="Delete(emp.id)"> 
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        
+                                
+                                
+                    <div class="card-footer">
+                        <div class="card-footer row">
+                               <div class="col-12" class="btn btn-info col-12" (click)="onSubmit(emp.id)">Book Now</div>
+                                
+                           
+                               
+
+                            
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+
+       
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="container">
+    <div class="card">
+
+    </div>
+    <div class="card-header bg-dark text-light ml-0 row container">
+        <div class="col-6">
+            <i class="fa fa-shopping-cart"></i> &nbsp;
+            Shopping Cart
+        </div>
+        <div class="col-6 text-right">
+            <a class="btn btn-outline-info btn-sm">Continue Shopping</a>
+
+        </div>
+    </div>
+    <div class="card-body">
+            <tr *ngFor='let ticket of TicketList'>
+                <div class="d-none d-lg-block col-lg-1 text-center py-2">
+                    <td>
+                        <img src={{ticket.image}} width="100" height="75" />
+                      </td>
+                </div>
+
+                <td>{{ticket.name}}</td>
+                <td>{{ticket.count}}</td>
+                 
+                  </tr>
+                  </div> -->
+<!-- <h2>{{ticket.id}}</h2> -->
+        <!-- <tr
+            *ngFor='let ticket of TicketList'>
+            <td>{{ticket.name}}</td>
+            <td>{{ticket.count}}</td>
+            <td>
+                <img src={{ticket.image}} width="100" height="75" />
+              </td>             -->
+        <!-- </tr> -->
+
+
+
+   <!-- <div class="container">
+       <h2>Cart</h2>
+       <div *ngIf="getCartDetails">
+               <tr>
+                   <th>Movie</th>
+                   <th>Name</th>
+                   <th>Count</th>
+                   
+               </tr>
+               <tr *ngFor=" let getCartDetail of getCartDetails">
+                   <td><imgsrc="{{getCartDetail.img}}"alt="P1"> </td>
+                   <td>
+                        {{getCartDetail.name}}</td> -->
+                   <!-- <td>
+                       <divclass="content">
+                           <button type="button"class="btn">
+                               <i class="fa fa-plus"></i>
+                           </button>
+                           <button type="button"class="btn">
+                               <i class="fa fa-minus"></i>
+                           </button>
+                       </div>
+                   </td>
+                   
+                   <td><button type="button"class="delete">
+                           <i class="fa fa-trash"></i>
+                       </button> </td>
+         </div>
+        -->

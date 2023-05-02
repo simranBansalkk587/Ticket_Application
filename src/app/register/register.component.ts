@@ -15,10 +15,10 @@ export class RegisterComponent {
   {
     this.registerService.Register(this.newregister).subscribe(
       (Response)=>{
-       
         this.newregister.name="";
         this.newregister.address="";
         this.newregister.email="";
+        this.newregister.password="";
    
       },
       (Error)=>{

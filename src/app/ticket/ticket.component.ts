@@ -27,6 +27,7 @@ export class TicketComponent {
     const observable = new Observable((subscriber: Subscriber<any>) => {
       this.readFile(file, subscriber);
     });
+    
     observable.subscribe((d) => {
       console.log(d)
       this.picture = d
@@ -85,6 +86,7 @@ this.NewTicket.image="";
   }
   EditClick(Ticket:Ticket)
   {
+    
   //  alert(emp.name)
   this.EditTicekt=Ticket;
   }

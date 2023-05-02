@@ -18,12 +18,12 @@ namespace Ticket_booking_API
 
     public EmailSetting _emailSettings { get; }
 
-    public Task SendEmailAsync(string email, string subject, string message)
-    {
+    //public Task SendEmailAsync(string email, string subject, string message)
+    //{
 
-      Execute(email, subject, message).Wait();
-      return Task.FromResult(0);
-    }
+    //  Execute(email, subject, message).Wait();
+    //  return Task.FromResult(0);
+    //}
 
     public async Task Execute(string email, string subject, string message)
     {
@@ -56,6 +56,45 @@ namespace Ticket_booking_API
         //do something here
       }
     }
+
+    public Task Execute(string email, string Subject, string message, int id)
+    {
+      Execute(email, Subject, message).Wait();
+      return Task.FromResult(0);
+    }
+
+    public async Task SendEmailAsync(string email, string subject, string message, int id)
+    {
+      try
+      {
+        string toEmail = string.IsNullOrEmpty(email)
+                         ? _emailSettings.ToEmail
+                         : email;
+        MailMessage mail = new MailMessage()
+        {
+          From = new MailAddress(_emailSettings.UsernameEmail, "Muhammad Hassan Tariq")
+        };
+        mail.To.Add(new MailAddress(toEmail));
+        mail.CC.Add(new MailAddress(_emailSettings.CcEmail));
+
+        mail.Subject = "Personal Management System - " + subject;
+        mail.Body = message;
+        mail.IsBodyHtml = true;
+        mail.Priority = MailPriority.High;
+
+        using (SmtpClient smtp = new SmtpClient(_emailSettings.SecondaryDomain, _emailSettings.PrimaryPort))
+        {
+          smtp.Credentials = new NetworkCredential(_emailSettings.UsernameEmail, _emailSettings.UsernamePassword);
+          smtp.EnableSsl = true;
+          await smtp.SendMailAsync(mail);
+        }
+      }
+      catch (Exception ex)
+      {
+        //do something here
+      }
+    }
+  }
   }
 
-}
+

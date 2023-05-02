@@ -7,6 +7,10 @@ namespace Ticket_booking_API.Models
 {
     public class Booking
     {
+    public Booking()
+    {
+      Count = 1;
+    }
         public int Id { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
