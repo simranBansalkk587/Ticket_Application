@@ -14,6 +14,7 @@ namespace Ticket_booking_API.DTOMapping
     {
       CreateMap<UserDTO, User>().ReverseMap();
       CreateMap<TicketDTO, Ticket>().ReverseMap();
+      CreateMap<BookingDTO, Booking>().ReverseMap();
     }
 
   }

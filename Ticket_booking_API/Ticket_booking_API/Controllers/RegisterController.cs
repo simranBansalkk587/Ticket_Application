@@ -37,69 +37,22 @@ namespace Ticket_booking_API.Controllers
     {
       if (ModelState.IsValid)
       {
-        if (userDTO.Email != null)
-        {
-          await _emailSender.SendEmailAsync(userDTO.Email, "Booking Confirmation",
-                              $"Your ticket is successfully bookes visit again ",userDTO.Id);
-        }
-
         var user = _mapper.Map<UserDTO, User>(userDTO);
-
-        var isUniqueUser = _userRepository.IsUniqueUser(user.Name);
-        if (!isUniqueUser) return BadRequest("User In Use");
-
-
-        //  user.Password = _encryptionRepository.EncryptPassword(user.Password);
-
-        var UserInfo = _userRepository.Register(userDTO);
-        if (UserInfo == null) return BadRequest();
+        var UserName = _userRepository.IsUniqueUser(user.Name);
+        if (!UserName) return BadRequest("User In Use");
+        userDTO.Password = HashPassword(userDTO.Password);
+        var userInDb = _userRepository.Register(userDTO);
+          if (userInDb == null) return BadRequest();
+          if(userInDb.Email !=null && userInDb.Id !=0)
+        {
+          var setpassword = $"http://localhost:4200/password?id={userInDb.Id}";
+          await _emailSender.SendEmailAsync(userDTO.Email, "Set Your Password", $"Please click on this link set password:{ setpassword}");
+        }
+       
       }
       return Ok();
     }
-    //[HttpPost("User")]
-    //public async Task<IActionResult> RegisterUser([FromBody] User user)
-    //{
-    //  try
-    //  {
-    //    if (ModelState.IsValid)
-    //    {
-    //      if (user.Email != null)
-    //      {
-
-
-
-
-    //        var hashedPassword = HashPassword(user.Password);  //for password hashing
-    //        user.Password = hashedPassword;
-
-
-    //        var token = Guid.NewGuid().ToString();  // for generating email confirmation
-    //        user.EmailConfirmedToken = token;
-
-
-    //        await _context.Users.AddAsync(user);
-    //        await _context.SaveChangesAsync();
-
-    //        var subject = "Confirm your email address";
-    //        var callBackurl = Url.Action("ConfirmEmail", "User", new { userid = user.Id, token }, protocol: HttpContext.Request.Scheme);
-    //        var message = $"Please confirm your email address by clicking this link: <a href='{callBackurl}'>Click Me </a>";
-
-    //        await _emailSender.SendEmailAsync(user.Email, subject, message);
-
-    //        return Ok();
-
-    //      }
-    //    }
-    //  }
-
-    //  catch (Exception)
-    //  {
-
-    //    throw;
-    //  }
-    //  return BadRequest();
-
-    //}
+   
 
 
     [HttpPost("authenticate")]
@@ -121,34 +74,18 @@ namespace Ticket_booking_API.Controllers
       }
 
     }
+    [HttpPut("Update")]
+    public IActionResult SetPassWord([FromBody]UserDTO userDTO)
+    {
+      if(userDTO==null)
+      {
+        return BadRequest(ModelState);
 
-
-    //[HttpGet("confirm-email")]
-    //public async Task<IActionResult> ConfirmEmail(int userId, string token)
-    //{
-
-    //  var user = await _context.Users.FindAsync(userId);
-
-    //  if (user == null)
-    //  {
-    //    return NotFound();
-    //  }
-
-    //  if (user.EmailConfirmedToken != token)
-    //  {
-    //    return BadRequest("Invalid token");
-    //  }
-
-    //  user.EmailConfrimed = true;
-
-
-    //  await _context.SaveChangesAsync();
-
-
-
-    //  return Redirect("http://localhost:4200/login");
-
-    //}
+      }
+      _userRepository.setPassword(userDTO);
+      return Ok();
+    }
+    
   }
 }
 

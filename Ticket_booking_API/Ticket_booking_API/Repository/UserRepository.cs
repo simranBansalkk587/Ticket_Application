@@ -26,6 +26,7 @@ namespace Ticket_booking_API.Repository
       _appSettings = appSettings.Value;
     }
     public User Authenticate(string username, string password)
+
     {
       var userInDb = _context.Users.FirstOrDefault(u => u.Email == username && u.Password == password);
       if (userInDb == null) return null;
@@ -59,19 +60,7 @@ namespace Ticket_booking_API.Repository
         return false;
     }
 
-    ////public User Register(string UserName, string UserPassword)
-    ////{
-    ////  User user = new User()
-    ////  {
-    ////    Name = UserName,
-    ////    Password = UserPassword
-
-    ////  };
-
-    ////  _context.Users.Add(user);
-    ////  _context.SaveChanges();
-    ////  return user;
-    ////}
+   
 
     public User Register(UserDTO userDTO)
     {
@@ -98,6 +87,18 @@ namespace Ticket_booking_API.Repository
         return hash;
       }
 
+    }
+
+    public User setPassword(UserDTO userDTO)
+    {
+      var userInDb = _context.Users.FirstOrDefault(u => u.Id == userDTO.Id);
+      if(userInDb !=null)
+      {
+        userInDb.Password = HashPassword(userDTO.Password);
+      }
+      _context.Users.Update(userInDb);
+      _context.SaveChanges();
+      return userInDb;
     }
   }
 }

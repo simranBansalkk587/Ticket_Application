@@ -9,7 +9,7 @@ import { AboutComponent } from './about/about.component';
 import { TicketComponent } from './ticket/ticket.component';
 import { RegisterComponent } from './register/register.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BookingComponent } from './booking/booking.component';
 import { LoginComponent } from './login/login.component';
 import { JwtintercapterService } from './jwtintercapter.service';
@@ -37,6 +37,7 @@ import { PasswordComponent } from './password/password.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     FormsModule,
     JwtModule.forRoot({
       config:{

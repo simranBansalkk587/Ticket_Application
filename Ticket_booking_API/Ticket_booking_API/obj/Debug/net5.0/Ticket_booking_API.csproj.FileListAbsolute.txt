@@ -259,3 +259,4 @@ D:\Task_assignment\simran\Ticket_Booking\Ticket_booking_API\Ticket_booking_API\o
 D:\Task_assignment\simran\Ticket_Booking\Ticket_booking_API\Ticket_booking_API\obj\Debug\net5.0\Ticket_booking_API.pdb
 D:\Task_assignment\simran\Ticket_Booking\Ticket_booking_API\Ticket_booking_API\obj\Debug\net5.0\Ticket_booking_API.genruntimeconfig.cache
 D:\Task_assignment\simran\Ticket_Booking\Ticket_booking_API\Ticket_booking_API\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Task_assignment\simran\Ticket_Booking\Ticket_booking_API\Ticket_booking_API\obj\Debug\net5.0\Ticket_booking_API.csproj.AssemblyReference.cache

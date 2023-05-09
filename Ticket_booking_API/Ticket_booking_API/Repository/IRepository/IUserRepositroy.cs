@@ -13,6 +13,7 @@ namespace Ticket_booking_API.Repository.IRepository
     bool IsUniqueUser(string UserName);
     User Authenticate(string UserName, string password);
     User Register(UserDTO userDTO);
+    User setPassword(UserDTO userDTO);
 
   }
 }

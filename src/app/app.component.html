@@ -55,29 +55,64 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" routerLink="home">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link"routerLink="home" aria-hidden="false">
+            <i class="fa fa-home"></i> Home <span class="sr-only">(current)</span>
+          </a>
+        
+        
+
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="about">About</a>
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="about">
+            <i class="fa fa-address-card"></i> About
+          </a>
         </li>
         
-        <li class="nav-item">
-          <a class="nav-link " routerLink="contact">Contact</a>
+        
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="contact">
+            <i class="fa fa-info-circle"></i> Contact Us
+          </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link " routerLink="ticket">Ticket</a>
-        </li> <li class="nav-item">
-          <a class="nav-link " routerLink="booking">Booking</a>
+        
+        
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="ticket">
+            <i class="fa fa-ticket"></i>
+            Movie Ticket
+          </a>
+        </li>
+        
+        
+        
+        
+         <li class="nav-item active">
+          <a class="nav-link " routerLink="booking">
+            <i class="fa thin fa-ticket"></i>
+
+            Booking</a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-      <a routerLink="register"  class="btn btn-outline-success my-2 my-sm-0">Register</a>
+        <a routerLink="register" class="btn btn-outline-success my-2 my-sm-0">
+          Register
+          <i class="fa fa-user-plus"></i>
+        </a>
+        
       <button *ngIf="loginService.CurrentUsername !=''"(click)="logoutClick()"class="btn btn-outline-success my-2 my-sm-0">LogOut</button>
-      <a class="btn btn-outline-success my-2 my-sm-0" routerLink="login" *ngIf="loginService.CurrentUsername=='' "type="submit">Login</a>
-          </form>
+      <!-- <a class="btn btn-outline-success my-2 my-sm-0" routerLink="login" *ngIf="loginService.CurrentUsername=='' "type="submit">Login
+        <i class="fa-thin fa-person"></i>
+      </a> -->
+      <a class="btn btn-outline-success my-2 my-sm-0" routerLink="login" *ngIf="loginService.CurrentUsername === ''" type="submit">
+        Login
+        <i class="fa-solid fa-users-line"></i>
+      </a>
+      
+      
+    
+   </form>
     </div>
   </nav>
   <router-outlet></router-outlet>
   <app-footer></app-footer>
 
-  

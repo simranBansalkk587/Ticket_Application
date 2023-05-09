@@ -43,6 +43,7 @@ export class HomeComponent {
   
 bookingticket(Ticket:Ticket)
   {
+
   this.Ticket=Ticket;
   this.CartService.addToCart(this.Ticket);
   this.router.navigateByUrl("/cart")

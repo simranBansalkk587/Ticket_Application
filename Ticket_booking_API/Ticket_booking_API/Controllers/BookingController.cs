@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Ticket_booking_API.Data;
+using Ticket_booking_API.DTO;
 using Ticket_booking_API.Models;
 using Ticket_booking_API.Repository.IRepository;
 
@@ -139,48 +140,38 @@ namespace Ticket_booking_API.Controllers
     //  }
     //}
     [HttpPost]
-    public IActionResult BookTicket([FromBody] Booking booking)
+    
+    public IActionResult BookTicket([FromBody] BookingDTO bookingDTO)
     {
-      //var bookticketDb = _context.Bookings.Include(u => u.User).Include(u => u.Ticket).FirstOrDefault();
-      //if (bookticketDb != null && ModelState.IsValid)
-      //{
-      //  _context.Bookings.Add(booking);
-      //  _context.SaveChanges();
-      //  return Ok();
-      //}
-      //return BadRequest();
-      try
+      if (bookingDTO.Count == 0)
       {
-        var bookinticket = _context.Tickets.FirstOrDefault(s => s.Id == booking.TicketId);
-        if (bookinticket.Count <= booking.Count)
-        {
-          return BadRequest("Not Enough tickets available");
-        }
-        var ticket = _context.Bookings.FirstOrDefault(s => s.UserId == booking.UserId && s.TicketId == booking.TicketId);
-        if (ticket != null)
-        {
-          var booktic = ticket.Count += booking.Count;
-          booking.Count = booktic;
-        }
-        bookinticket.Count -= booking.Count;
-        _context.Entry(ticket).State = EntityState.Modified;
-        _context.Bookings.Add(booking);
-        _context.SaveChanges();
-        return Ok();
-      }
-      catch (Exception ex)
-      {
-        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        return BadRequest("no ticket");
 
       }
+      var ticketsindb = _ticketRepository.GetAllTickets();
+      var ticket = ticketsindb.FirstOrDefault(u => u.Id == bookingDTO.TicketId);
+      if(ticket==null || ticket.Count <=0)
+      {
+        return BadRequest("no ticket");
+      }
+      if(bookingDTO.Count > ticket.Count)
+      {
+        return BadRequest("no ticket");
+      }
+      if (bookingDTO == null) return BadRequest(ModelState.IsValid);
+      _bookingRepositroy.BookTicket(bookingDTO);
+     //   _context.SaveChanges();
+        return Ok(bookingDTO);
+      
+     
     }
+
+
     [HttpGet]
     public IActionResult GetBooking()
     {
       return Ok(_context.Bookings.Include(u => u.Ticket).Include(u => u.User).ToList());
-      //return Ok(_context.Employees.ToList());
-      //var empInDb = _context.Tickets.Where(n => !n.IsDeleted);
-      //return Ok(empInDb);
+      
     }
     [HttpPut]
     public IActionResult BookingUpdate([FromBody] Booking booking)

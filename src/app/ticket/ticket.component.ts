@@ -1,7 +1,9 @@
+import { SweetAlertService } from './../sweet-alert.service';
 import { Observable , Subscriber} from 'rxjs';
 import { TicketService } from './../ticket.service';
 import { Component } from '@angular/core';
 import { Ticket } from '../ticket';
+import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-ticket',
@@ -9,6 +11,7 @@ import { Ticket } from '../ticket';
   styleUrls: ['./ticket.component.scss']
 })
 export class TicketComponent {
+  
   TicketList:Ticket[]=[];
   NewTicket:Ticket=new Ticket();
   EditTicekt:Ticket=new Ticket();
@@ -56,7 +59,20 @@ export class TicketComponent {
   
 
   
-  constructor(private TicketService:TicketService){}
+  constructor(private TicketService:TicketService){
+    // this.from=this.formBuilder.group(
+    //   {
+    //     name:['',
+    //     [
+    //       Validators.required,
+    //       Validators.pattern('^[a-zA-Z \-\']+'),
+    //       Validators.maxLength(20)
+    //     ]
+    //   ],
+    //   count:['',Validators.required],
+    //   }
+    // )
+  }
   ngOnInit()
   {
     this.Getall();
@@ -75,6 +91,12 @@ export class TicketComponent {
   }
   SaveClick()
   {
+
+    // if(this.from.invalid){
+    //   this.submitted=true
+    //   return;
+    // }
+    
     this.TicketService.SaveTickets(this.NewTicket).subscribe(
       (response)=>{
 this.Getall();
@@ -92,6 +114,10 @@ this.NewTicket.image="";
   }
   UpdateClick()
   {
+    // if(this.from.invalid){
+    //   this.submitted=true
+    //   return;
+    // }
    // alert(this.EditEmployee.name)
    this.TicketService.UpdateTickets(this.EditTicekt).subscribe(
     (response)=>{
@@ -105,17 +131,25 @@ this.NewTicket.image="";
   }
   DeleteClick(id:number)
   {
-   // alert(id);
-   let ans=window.confirm('Do you want to delete data !!');
-   if(!ans) return;
+    
+    // alert(id);
+     let ans=window.confirm('Do you want to delete data !!');
+     if(!ans) return;
+
     this.TicketService.DeleteTicket(id).subscribe(
       (response)=>{
         this.Getall();
       },
       (error)=>{
-        console.log(error);
-      }
+       // console.log(error);
+      },
     );
+      
+   
   }
+  
+      
 
 }
+
+

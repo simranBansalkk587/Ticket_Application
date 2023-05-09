@@ -1,14 +1,15 @@
 <div class="row-2">
 <h2 class="
- text-info text-center">Book my show</h2>
+ text-info text-center">Book your show</h2>
 </div>
 <br>
-<div class="col-12">
+<div class="col-12 p-1
+">
 <div class="border-top-right-radius border-top-left-radius">
     <div class="row padding-left-2">
  <div class="row">
    <div class="row p-1 m-2" *ngFor="let ticket of TicketList">
-       <div class="card p-0" style="width: 21rem;">
+       <div class="card p-0" style="width: 21rem;" >
            <img class="card-img-top" src={{ticket.image}} alt="Card image cap">
            <div class="card-body bg-dark text-light ml-0 row container">
              <p class="card-text">Movie:</p>
@@ -24,29 +25,4 @@
        </div>
    </div>
   </div>
-   <!-- (click)="onSubmit(ticket.id)" -->
-   <!-- routerLink="/cart" -->
-    <!-- <div class="container
- text-center">
-        <divclass="row">
-            <div class="col-md-3"*ngFor="let ticket of TicketList">
-
-                <divclass="box">
-                    <divclass="ticket">
-                        <imgsrc="{{ticket.image}}"alt="P1">
-                    </div>
-                    <divclass="content">
-                        <h4>
-                          <td>
-                            {{ticket.name}}
-                          </td>
-                          Movie
-                        </h4>
-                        
-                        
-                    </div>
-                    <button type="button"class="cart_btn">
-                         Add To Cart</button>
-                </div>
-            </div>
-        </div> -->
+   

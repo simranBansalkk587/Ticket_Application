@@ -1,4 +1,5 @@
 <section class="h-100 h-custom" style="background-color: #8fc4b7;">
+  <form [formGroup]="loginForm"(ngSubmit)="loginUser()">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-lg-8 col-xl-6">
@@ -16,7 +17,12 @@
 
                     <i class="fa fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <input type="text"  [(ngModel)]="newregister.name" id="txtuname" class="form-control" />
+                      <input type="text"  [(ngModel)]="newregister.name" id="txtuname" class="form-control"formControlName="name" />
+                      
+                      <span style="color: red;"*ngIf="name && name.invalid && name.touched">
+                        Name Is Required
+                      </span>
+
                     </div>
                   </div>
                   <div class="d-flex flex-row align-items-center mb-4">
@@ -24,23 +30,29 @@
 
                     <i class="fa fa-envelope fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <input type="email" [(ngModel)]="newregister.email" id="uemail" class="form-control" />
+                      <input type="email" [(ngModel)]="newregister.email" id="uemail" class="form-control"formControlName="email" />
+                      <span style="color: red;"*ngIf="email && email.invalid && email.touched">
+                        Enter Vaild Email 
+                      </span>
                     </div>
                   </div>
-                  <div class="d-flex flex-row align-items-center mb-4">
+                  <!-- <div class="d-flex flex-row align-items-center mb-4">
                     <label class="form-label" for="form3Example4c">Password</label>
 
                     <i class="fa fa-lock fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
                       <input type="password" [(ngModel)]="newregister.password" id="upassword" class="form-control" />
                     </div>
-                  </div>
+                  </div> -->
                   <div class="d-flex flex-row align-items-center mb-4">
                     <label class="form-label" for="form3Example4c"> Your Address</label>
 
                     <i class="fa fa-address-book fa-lg me-3 fa-fw" ></i>
                     <div class="form-outline flex-fill mb-0">
-                      <input type="address" [(ngModel)]="newregister.address" id="usaddress" class="form-control" />
+                      <input type="address" [(ngModel)]="newregister.address" id="usaddress" class="form-control"formControlName="address" />
+                      <span style="color: red;"*ngIf="address && address.invalid && address.touched">
+                         Must Be Enter Address
+                      </span>
                     </div>
                   </div>
                 
@@ -49,7 +61,7 @@
   
                 
   
-                <button type="submit" class="btn btn-success btn-lg mb-1" (click)="registerclick()">Submit</button>
+                <button type="submit" [disabled]="loginForm.invalid"class="btn btn-success btn-lg mb-1" (click)="registerclick()">Submit</button>
   
             </div>
   
@@ -58,6 +70,7 @@
         </div>
       </div>
     </div>
+  </form>
   </section>
 
 

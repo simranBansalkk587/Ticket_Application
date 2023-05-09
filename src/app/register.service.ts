@@ -11,4 +11,12 @@ export class RegisterService {
   Register(newregister:Register):Observable<Register>
   {
     return this.httpclient.post<Register>("https://localhost:44372/api/Register/User",newregister)
-  }}
+  }
+  SetPassWord(newregister:Register):Observable<Register>
+  
+  {
+    debugger
+    return this.httpclient.put<Register>("https://localhost:44372/api/Register/Update",newregister)
+  
+  }
+}

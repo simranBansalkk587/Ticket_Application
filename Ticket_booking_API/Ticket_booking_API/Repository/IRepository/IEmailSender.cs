@@ -7,7 +7,7 @@ namespace Ticket_booking_API.Repository.IRepository
 {
   public interface IEmailSender
   {
-    Task Execute(string email, string Subject, string message,int id);
-    Task SendEmailAsync(string email, string subject, string htmlMessage,int id);
+    Task Execute(string email, string Subject, string message);
+    Task SendEmailAsync(string email, string subject, string Message);
   }
 }
